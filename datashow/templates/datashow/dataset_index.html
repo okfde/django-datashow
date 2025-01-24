@@ -1,0 +1,17 @@
+{% extends "datashow/base.html" %}
+{% load datashow_tags i18n %}
+{% block title %}
+    {{ dataset.name }}
+{% endblock title %}
+{% block content %}
+    <h1>{{ dataset.name }}</h1>
+    {% if dataset.description %}<div class="my-3">{{ dataset.description|markdownify }}</div>{% endif %}
+    {% for table in tables %}
+        <h5 class="mb-1">
+            <a href="{{ table.get_absolute_url }}">{{ table.label }}</a>
+        </h5>
+        <small>{{ table.row_count }} {% translate "rows" %}</small>
+        {% if table.description %}<p>{{ table.description|markdownify }}</p>{% endif %}
+        {% if not forloop.last %}<hr />{% endif %}
+    {% endfor %}
+{% endblock content %}

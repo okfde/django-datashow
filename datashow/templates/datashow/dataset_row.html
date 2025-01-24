@@ -1,0 +1,20 @@
+{% extends "datashow/base.html" %}
+{% block title %}
+    {{ table.label }}
+{% endblock title %}
+{% block content %}
+    {% if dataset.default_table != table %}
+        <a href="{% url "datashow:dataset_table" slug=dataset.slug table_slug=table.slug %}">← {{ table.label }}</a>
+    {% else %}
+        <a href="{% url "datashow:dataset_index" slug=dataset.slug %}">← {{ table.label }}</a>
+    {% endif %}
+    <h1>{{ row_label }}</h1>
+    <dl>
+        {% for col, rendered in row %}
+            <dt>{{ col.label }}</dt>
+            <dd>
+                {{ rendered.formatted_value }}
+            </dd>
+        {% endfor %}
+    </dl>
+{% endblock content %}

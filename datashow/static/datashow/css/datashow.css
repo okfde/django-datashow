@@ -1,0 +1,28 @@
+/* .datashow-summary[open] summary>span {
+    display: none;
+} */
+
+.datashow-summary summary {
+    white-space: nowrap;
+}
+
+.datashow-truncate .datashow-truncate-head::after {
+    content: '…';
+}
+
+.datashow-truncate .datashow-truncate-tail {
+    display: none;
+}
+
+tr:hover .datashow-truncate .datashow-truncate-head::after {
+    display: none;
+}
+
+tr:hover .datashow-truncate .datashow-truncate-tail {
+    display: inline;
+}
+
+.datashow-facetlist {
+    max-height: 200px !important;
+    overflow-y: auto;
+}

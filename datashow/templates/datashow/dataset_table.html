@@ -1,0 +1,13 @@
+{% extends "datashow/base.html" %}
+{% load datashow_tags %}
+{% block title %}
+    {{ table.label }}
+{% endblock title %}
+{% block content %}
+    {% if dataset.default_table != table %}
+        <a href="{% url "datashow:dataset_index" dataset.slug %}">← {{ dataset.name }}</a>
+    {% endif %}
+    <h1>{{ table.label }}</h1>
+    {% if table.description %}<div>{{ table.description|markdownify }}</div>{% endif %}
+    {% include "datashow/_table.html" %}
+{% endblock content %}
