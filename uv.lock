@@ -73,8 +73,8 @@ wheels = [
 
 [[package]]
 name = "django-datashow"
-version = "0.1.0"
-source = { virtual = "." }
+version = "0.1.1"
+source = { editable = "." }
 dependencies = [
     { name = "django" },
     { name = "django-admin-sortable2" },
@@ -88,8 +88,8 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "django", specifier = ">=4" },
-    { name = "django-admin-sortable2", specifier = ">=2.2.4" },
+    { name = "django", specifier = ">=4.2" },
+    { name = "django-admin-sortable2", specifier = ">=2" },
     { name = "markdown", specifier = ">=3.7" },
 ]
 
