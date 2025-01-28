@@ -66,7 +66,6 @@ class RowList(ListView):
             (c, format_column(c)) for c in self.table.get_visible_columns()
         ]
         ctx["facets"] = get_facets(self.table, self.formdata)
-        print(ctx["facets"])
         ctx["filter_form"] = self.filter_form
         return ctx
 

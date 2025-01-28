@@ -177,7 +177,6 @@ def format_column_value(row_data, column: Column, detail=False) -> RenderRow:
 def get_count(table: Table, query: SqlQuery):
     try:
         with open_cursor(table.dataset) as cursor:
-            print(query)
             cursor.execute(query.to_sql(), query.params)
             return cursor.fetchone()[0]
     except sqlite3.OperationalError as e:
