@@ -91,7 +91,7 @@ class SqlQuery:
     def add_order(self):
         if not self.formdata:
             return
-        sort_columns = self.formdata.get(SORT_PARAM)
+        sort_columns = self.formdata.get(SORT_PARAM, [])
         for sort in sort_columns:
             direction = "ASC"
             if sort.startswith("-"):

@@ -230,6 +230,8 @@ class Table(models.Model):
         return [col.name for col in self.get_columns()]
 
     def has_fts(self):
+        if not self.primary_key:
+            return False
         return any(col.searchable for col in self.get_columns())
 
     def row_label(self, row: dict) -> str:
