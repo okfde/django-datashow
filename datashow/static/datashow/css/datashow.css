@@ -25,7 +25,21 @@ tr:hover .datashow-truncate .datashow-truncate-tail {
 .datashow-facetlist {
     max-height: 200px !important;
     overflow-y: auto;
-}@media only screen and (max-width: 576px) {
+}
+
+.datashow-sort {
+    font-weight: normal;
+}
+
+.datashow-sort-active {
+    font-weight: bold;
+}
+
+.datashow-sort-active:hover {
+    text-decoration: line-through;
+}
+
+@media only screen and (max-width: 576px) {
 
     table.datashow-table,
     .datashow-table thead,
