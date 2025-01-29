@@ -166,12 +166,13 @@ class RenderRow(NamedTuple):
     value: str
     css: str
     formatted_value: str
+    column: Column
 
 
 def format_column_value(row_data, column: Column, detail=False) -> RenderRow:
     value = row_data[column.name]
     css, formatted_value = format_value(column, value, row_data, detail=detail)
-    return RenderRow(value, css, formatted_value)
+    return RenderRow(value, css, formatted_value, column)
 
 
 def get_count(table: Table, query: SqlQuery):
@@ -256,7 +257,7 @@ def get_row(table: Table, row_id: str) -> tuple[list[RenderRow], dict]:
         # Return only visible columns
         return (
             [
-                (col, format_column_value(row_data, col, detail=True))
+                format_column_value(row_data, col, detail=True)
                 for col in table.get_detail_visible_columns()
             ],
             row_data,

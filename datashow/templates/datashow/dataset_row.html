@@ -10,8 +10,8 @@
     {% endif %}
     <h1>{{ row_label }}</h1>
     <dl>
-        {% for col, rendered in row %}
-            <dt>{{ col.label }}</dt>
+        {% for rendered in row %}
+            <dt>{{ rendered.column.label }}</dt>
             <dd>
                 {{ rendered.formatted_value }}
             </dd>

@@ -78,12 +78,14 @@
                     {% endfor %}
                 </tr>
             </thead>
-            <tbody class="table-group-divider">
+            <tbody>
                 {% for row in object_list %}
                     <tr>
-                        {% for val, css, rendered in row %}
-                            <td data-val="{% localize off %}{{ val }}{% endlocalize %}"
-                                class="{{ css }}">{{ rendered }}</td>
+                        {% for val, css, rendered, column in row %}
+                            <td data-colname="{{ column.label }}"
+                                data-val="{% localize off %}{{ val }}{% endlocalize %}">
+                                <span class="{{ css }}">{{ rendered }}</span>
+                            </td>
                         {% endfor %}
                     </tr>
                 {% endfor %}
