@@ -72,7 +72,10 @@ class SqlQuery:
         ]
         self.add_filter(exclude_column=column.name)
         self.limit = column.facet_count
-        self.order = ["count DESC"]
+        if column.sortable:
+            self.order = ["key ASC"]
+        else:
+            self.order = ["count DESC"]
         self.groupby = ["key"]
         return self
 
