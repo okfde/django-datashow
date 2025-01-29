@@ -104,9 +104,7 @@
     <div class="row">
         <div class="col-md-8">
             {% if paginator.num_pages > 1 %}
-                <div hx-boost="true"
-                     hx-swap="show:none"
-                     hx-target="#datashow-table-{{ table.id }}">{% include "datashow/pagination.html" %}</div>
+                <div hx-boost="true" hx-target="#datashow-table-{{ table.id }}">{% include "datashow/pagination.html" %}</div>
             {% endif %}
         </div>
         <div class="col-md-4">
