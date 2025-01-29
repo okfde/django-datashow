@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-24 12:41+0100\n"
-"PO-Revision-Date: 2025-01-24 12:41+0100\n"
+"POT-Creation-Date: 2025-01-29 10:23+0100\n"
+"PO-Revision-Date: 2025-01-29 10:24+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -449,12 +449,16 @@ msgstr ""
 "            "
 
 #: templates/datashow/_table.html
-msgid "Export CSV"
-msgstr "CSV exportieren"
+msgid "Export view as CSV"
+msgstr "CSV dieser Ansicht exportieren"
 
 #: templates/datashow/dataset_index.html
 msgid "rows"
 msgstr "Zeilen"
+
+#: templates/datashow/dataset_index.html templates/datashow/dataset_table.html
+msgid "Download SQLite database"
+msgstr "SQLite-Datenbank herunterladen"
 
 #: templates/datashow/pagination.html
 msgid "Pagination"
