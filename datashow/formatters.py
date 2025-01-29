@@ -31,6 +31,7 @@ def try_format(args, key, row_data, default=""):
 
 ALIGN_RIGHT = "text-end"
 ALIGN_CENTER = "text-center"
+NUMBER = "tabular-numbers text-end"
 
 
 def format_column(column):
@@ -67,18 +68,18 @@ def format_value(column, value, row_data, detail=False):
     args = column.formatter_arguments
     if formatter == FormaterChoices.FLOAT:
         value = intcomma(value)
-        css = ALIGN_RIGHT
+        css = NUMBER
     elif formatter == FormaterChoices.INTEGER:
         value = TRAILING_ZERO.sub("", intcomma(value))
-        css = ALIGN_RIGHT
+        css = NUMBER
     elif formatter == FormaterChoices.DATE:
         value = formats.date_format(datetime.fromisoformat(value), "SHORT_DATE_FORMAT")
-        css = ALIGN_RIGHT
+        css = NUMBER
     elif formatter == FormaterChoices.DATETIME:
         value = formats.date_format(
             datetime.fromisoformat(value), "SHORT_DATETIME_FORMAT"
         )
-        css = ALIGN_RIGHT
+        css = NUMBER
     elif formatter == FormaterChoices.BOOLEAN:
         if value:
             value = mark_safe('<span class="text-success">✅</span>')
