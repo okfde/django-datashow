@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-29 10:23+0100\n"
-"PO-Revision-Date: 2025-01-29 10:24+0100\n"
+"POT-Creation-Date: 2025-01-29 15:06+0100\n"
+"PO-Revision-Date: 2025-01-29 15:07+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -423,8 +423,16 @@ msgid "sort ascending"
 msgstr "Sortiere aufsteigend"
 
 #: templates/datashow/_table.html
+msgid "remove sort ascending"
+msgstr "Aufsteigende Sortierung entfernen"
+
+#: templates/datashow/_table.html
 msgid "sort descending"
 msgstr "Sortiere absteigend"
+
+#: templates/datashow/_table.html
+msgid "remove sort descending"
+msgstr "Absteigende Sortierung entfernen"
 
 #: templates/datashow/_table.html
 #, python-format
@@ -441,11 +449,11 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"            Showing %(total_count)s rows.\n"
+"            Total of %(total_count)s rows.\n"
 "            "
 msgstr ""
 "\n"
-"            Zeige %(total_count)s Zeilen.\n"
+"            Insgesamt %(total_count)s Zeilen.\n"
 "            "
 
 #: templates/datashow/_table.html
