@@ -1,4 +1,4 @@
-{% load i18n datashow_tags %}
+{% load i18n l10n datashow_tags humanize %}
 <div id="datashow-table-{{ table.id }}">
     {% if filter_form.has_filter %}
         <div class="row">
@@ -81,7 +81,10 @@
             <tbody class="table-group-divider">
                 {% for row in object_list %}
                     <tr>
-                        {% for val, css, rendered in row %}<td data-val="{{ val }}" class="{{ css }}">{{ rendered }}</td>{% endfor %}
+                        {% for val, css, rendered in row %}
+                            <td data-val="{% localize off %}{{ val }}{% endlocalize %}"
+                                class="{{ css }}">{{ rendered }}</td>
+                        {% endfor %}
                     </tr>
                 {% endfor %}
             </tbody>
@@ -89,11 +92,11 @@
     </div>
     <p>
         {% if filter_form.is_filtered %}
-            {% blocktrans with total_count=table.row_count count=paginator.count %}
+            {% blocktrans with total_count=table.row_count|intcomma count=paginator.count|intcomma %}
             Showing {{ count }} of {{ total_count }} rows.
         {% endblocktrans %}
         {% else %}
-            {% blocktrans with total_count=table.row_count %}
+            {% blocktrans with total_count=table.row_count|intcomma %}
             Showing {{ total_count }} rows.
             {% endblocktrans %}
         {% endif %}
