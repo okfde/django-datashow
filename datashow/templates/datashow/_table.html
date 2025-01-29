@@ -1,8 +1,8 @@
 {% load i18n l10n datashow_tags humanize %}
 <div id="datashow-table-{{ table.id }}">
     {% if filter_form.has_filter %}
-        <div class="row">
-            <div class="col-md-8 justify-content-end">
+        <div class="row justify-content-end">
+            <div class="col-md-8">
                 <form method="get"
                       action="."
                       hx-boost="true"
@@ -23,7 +23,7 @@
     {% if facets %}
         <div class="row">
             {% for facet in facets %}
-                <div class="col-md-2 col-3">
+                <div class="col-md-2 col-sm-3 col-6">
                     <h5>{{ facet.column.label }}</h5>
                     <ul class="list-unstyled datashow-facetlist">
                         {% for key, count, active in facet.keys %}
@@ -102,14 +102,14 @@
         {% endif %}
     </p>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-8">
             {% if paginator.num_pages > 1 %}
                 <div hx-boost="true"
                      hx-swap="show:none"
                      hx-target="#datashow-table-{{ table.id }}">{% include "datashow/pagination.html" %}</div>
             {% endif %}
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="d-flex justify-content-end">
                 <a href="{% url "datashow:dataset_table_export" slug=dataset.slug table_slug=table.slug %}?{% querystring %}"
                    class="btn btn-sm btn-secondary">{% translate "Export CSV" %}</a>

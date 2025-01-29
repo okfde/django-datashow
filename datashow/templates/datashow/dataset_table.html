@@ -7,7 +7,11 @@
     {% if dataset.default_table != table %}
         <a href="{% url "datashow:dataset_index" dataset.slug %}">← {{ dataset.name }}</a>
     {% endif %}
+    <div class="row mb-3">
+        <div class="col-md-8">
     <h1>{{ table.label }}</h1>
     {% if table.description %}<div>{{ table.description|markdownify }}</div>{% endif %}
+        </div>
+    </div>
     {% include "datashow/_table.html" %}
 {% endblock content %}
