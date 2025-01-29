@@ -1,5 +1,5 @@
 {% extends "datashow/base.html" %}
-{% load datashow_tags %}
+{% load i18n datashow_tags %}
 {% block title %}
     {{ table.label }}
 {% endblock title %}
@@ -9,9 +9,18 @@
     {% endif %}
     <div class="row mb-3">
         <div class="col-md-8">
-    <h1>{{ table.label }}</h1>
-    {% if table.description %}<div>{{ table.description|markdownify }}</div>{% endif %}
+            <h1>{{ table.label }}</h1>
+            {% if table.description %}<div>{{ table.description|markdownify }}</div>{% endif %}
         </div>
     </div>
     {% include "datashow/_table.html" %}
+    {% if dataset.default_table == table %}
+        <div class="row mt-md-0 mt-3 mb-3 justify-content-end">
+            <div class="col-md-8">
+                <div class="d-flex justify-content-end">
+                    <a href="{{ dataset.sqlite_file.url }}" class="btn btn-sm btn-secondary">{% translate "Download SQLite database" %}</a>
+                </div>
+            </div>
+        </div>
+    {% endif %}
 {% endblock content %}
