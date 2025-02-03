@@ -1,5 +1,3 @@
-from typing import NamedTuple
-
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
@@ -8,12 +6,6 @@ from .models import FilterChoices
 
 SEARCH_PARAM = "q"
 SORT_PARAM = "sort"
-
-
-class SqlParts(NamedTuple):
-    from_sql: list[str]
-    where_sql: list[str]
-    where_params: list
 
 
 class FilterForm(forms.Form):

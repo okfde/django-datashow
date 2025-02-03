@@ -88,19 +88,6 @@ class RowQueryset:
     def __iter__(self):
         return iter(self._rows)
 
-    def as_list(self):
-        return [dict(row) for row in self._rows]
-
-    # def get_facets(self):
-    #     facet_cols = [col for col in self.table.get_columns() if col.facet]
-    #     facet_cols = [col for col in facet_cols if col.name == "department"]
-    #     for col in facet_cols:
-    #         sql, params = self.generate_sql()
-    #         sql = f"SELECT {col.name}, COUNT(*) AS __count FROM ({sql}) GROUP BY {col.name} ORDER BY __count DESC"
-    #         with open_cursor(self.table.dataset) as cursor:
-    #             cursor.execute(sql, params)
-    #             yield col, cursor.fetchall()
-
 
 def get_table_info(cursor, table_name: str) -> SqliteTableData:
     cursor.execute("PRAGMA table_info({})".format(table_name))

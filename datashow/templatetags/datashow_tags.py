@@ -21,10 +21,7 @@ def querystring(context, key=None, value=None):
         return ""
 
     query = request.GET.copy()
-    if not value:
-        query.pop(key, None)
-    else:
-        query[key] = value
+    query[key] = value
     return query.urlencode()
 
 
