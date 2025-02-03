@@ -87,7 +87,7 @@ class SqlQuery:
             where="WHERE " + " AND ".join(self.where) if self.where else "",
             groupby="GROUP BY " + ", ".join(self.groupby) if self.groupby else "",
             order="ORDER BY " + ", ".join(self.order) if self.order else "",
-            limit="LIMIT {} ".format(self.limit) if self.limit else "",
+            limit="LIMIT {}".format(self.limit) if self.limit else "",
             offset="OFFSET {}".format(self.offset) if self.offset else "",
         )
 
@@ -140,7 +140,7 @@ class SqlQuery:
         for column in filter_columns:
             column_filter = column.filter
             if column_filter == FilterChoices.INTEGER_RANGE:
-                field_value = self.formdata[column.name + "__range"]
+                field_value = self.formdata.get(column.name + "__range")
                 if field_value is None:
                     continue
                 min_value, max_value = field_value
