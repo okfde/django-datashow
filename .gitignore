@@ -9,5 +9,10 @@ wheels/
 
 # Virtual environments
 .venv
+.vscode/
 
+.env
+.coverage
+htmlcov/
+tests/cache_dir
 *.mo

@@ -1,0 +1,6 @@
+django-admin-sortable2>=2
+markdown>=3.7
+coverage[toml]
+django>=4.2
+pytest
+pytest-django
