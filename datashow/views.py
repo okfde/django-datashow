@@ -1,7 +1,7 @@
 import csv
 
 from django.http import Http404, StreamingHttpResponse
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import ListView
 
 from .formatters import format_column
@@ -39,6 +39,7 @@ class RowList(ListView):
     context_object_name = "tables"
     dataset_slug_kwarg = "slug"
     table_slug_kwarg = "table_slug"
+    default_view = False
 
     def get_queryset(self):
         self.dataset = self.kwargs.get("dataset")
@@ -49,11 +50,17 @@ class RowList(ListView):
         if self.table is None:
             table_slug = self.kwargs.get(self.table_slug_kwarg)
             self.table = get_table(self.dataset, table_slug)
+
         self.filter_form = FilterForm(self.table, data=self.request.GET)
         self.formdata = None
         if self.filter_form.is_valid():
             self.formdata = self.filter_form.cleaned_data
         return RowQueryset(self.table, formdata=self.formdata)
+
+    def render_to_response(self, context):
+        if not self.default_view and self.dataset.default_table == self.table:
+            return redirect(self.table.get_absolute_url())
+        return super().render_to_response(context)
 
     def get_paginate_by(self, queryset):
         return self.table.pagination_size
@@ -75,7 +82,7 @@ class RowList(ListView):
         return super().get_template_names()
 
 
-default_table_view = RowList.as_view()
+default_table_view = RowList.as_view(default_view=True)
 
 
 class Echo:
@@ -127,6 +134,8 @@ def show_dataset_default_table_row(request, slug: str, row_slug: str):
 def show_dataset_table_row(request, slug: str, table_slug: str, row_slug: str):
     dataset = get_dataset(request, slug)
     table = get_table(dataset, table_slug)
+    if dataset.default_table == table:
+        return redirect("datashow:dataset-row", slug=dataset.slug, row_slug=row_slug)
     return dataset_row(request, dataset, table, row_slug)
 
 
@@ -134,7 +143,7 @@ def dataset_row(request, dataset: Dataset, table: Table, row_slug: str):
     if not table.primary_key:
         raise Http404
     try:
-    row, row_dict = get_row(table, row_slug)
+        row, row_dict = get_row(table, row_slug)
     except KeyError:
         raise Http404
     row_label = table.row_label(row_dict)
