@@ -241,7 +241,7 @@ class Table(models.Model):
             return ""
 
 
-class FormaterChoices(models.TextChoices):
+class FormatterChoices(models.TextChoices):
     PLAINTEXT = "plaintext", _("Plaintext")
     FLOAT = "float", _("Float")
     INTEGER = "integer", _("Integer")
@@ -329,7 +329,7 @@ class Column(models.Model):
         help_text=_("Postfix when outputting the column value."),
     )
     formatter = models.CharField(
-        choices=FormaterChoices.choices,
+        choices=FormatterChoices.choices,
         max_length=255,
         default="plaintext",
         verbose_name=_("Formatter"),

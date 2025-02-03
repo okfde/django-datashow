@@ -7,7 +7,7 @@ from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 
-from .models import FormaterChoices
+from .models import FormatterChoices
 
 TRAILING_ZERO = re.compile(r"[,\.]0+$")
 
@@ -37,15 +37,15 @@ NUMBER = "tabular-numbers text-end"
 def format_column(column):
     css = ""
     formatter = column.formatter
-    if formatter == FormaterChoices.FLOAT:
+    if formatter == FormatterChoices.FLOAT:
         css = ALIGN_RIGHT
-    elif formatter == FormaterChoices.INTEGER:
+    elif formatter == FormatterChoices.INTEGER:
         css = ALIGN_RIGHT
-    elif formatter == FormaterChoices.DATE:
+    elif formatter == FormatterChoices.DATE:
         css = ALIGN_RIGHT
-    elif formatter == FormaterChoices.DATETIME:
+    elif formatter == FormatterChoices.DATETIME:
         css = ALIGN_RIGHT
-    elif formatter == FormaterChoices.BOOLEAN:
+    elif formatter == FormatterChoices.BOOLEAN:
         css = ALIGN_CENTER
     return css
 
@@ -54,46 +54,46 @@ def format_value(column, value, row_data, detail=False):
     css = ""
     formatter = column.formatter
     if value is None:
-        if formatter == FormaterChoices.BOOLEAN:
+        if formatter == FormatterChoices.BOOLEAN:
             css = ALIGN_CENTER
         if formatter in (
-            FormaterChoices.FLOAT,
-            FormaterChoices.INTEGER,
-            FormaterChoices.DATE,
-            FormaterChoices.DATETIME,
+            FormatterChoices.FLOAT,
+            FormatterChoices.INTEGER,
+            FormatterChoices.DATE,
+            FormatterChoices.DATETIME,
         ):
             css = ALIGN_RIGHT
         return css, mark_safe('<span class="text-secondary">–</span>')
 
     args = column.formatter_arguments
-    if formatter == FormaterChoices.FLOAT:
+    if formatter == FormatterChoices.FLOAT:
         value = intcomma(value)
         css = NUMBER
-    elif formatter == FormaterChoices.INTEGER:
+    elif formatter == FormatterChoices.INTEGER:
         value = TRAILING_ZERO.sub("", intcomma(value))
         css = NUMBER
-    elif formatter == FormaterChoices.DATE:
+    elif formatter == FormatterChoices.DATE:
         value = formats.date_format(datetime.fromisoformat(value), "SHORT_DATE_FORMAT")
         css = NUMBER
-    elif formatter == FormaterChoices.DATETIME:
+    elif formatter == FormatterChoices.DATETIME:
         value = formats.date_format(
             datetime.fromisoformat(value), "SHORT_DATETIME_FORMAT"
         )
         css = NUMBER
-    elif formatter == FormaterChoices.BOOLEAN:
+    elif formatter == FormatterChoices.BOOLEAN:
         if value:
             value = mark_safe('<span class="text-success">✅</span>')
         else:
             value = mark_safe('<span class="text-danger">❌</span>')
         css = ALIGN_CENTER
-    elif formatter == FormaterChoices.LINK:
+    elif formatter == FormatterChoices.LINK:
         url = try_format(args, "url", row_data, "")
         value = format_html(
             '<a href="{href}">{link}</a>',
             href=url,
             link=value,
         )
-    elif formatter == FormaterChoices.SUMMARY:
+    elif formatter == FormatterChoices.SUMMARY:
         if not detail:
             summary = try_format(args, "summary", row_data, _("Details"))
             value = format_html(
@@ -101,7 +101,7 @@ def format_value(column, value, row_data, detail=False):
                 summary=summary,
                 details=value,
             )
-    elif formatter == FormaterChoices.ABBREVIATION:
+    elif formatter == FormatterChoices.ABBREVIATION:
         title = try_format(args, "title", row_data, None)
         if title is None:
             value = format_html("<abbr>{value}</abbr>", value=value)
