@@ -1,10 +1,11 @@
 import re
 from datetime import datetime
+from typing import Union
 
 from django.contrib.humanize.templatetags.humanize import intcomma
 from django.utils import formats
 from django.utils.html import format_html
-from django.utils.safestring import mark_safe
+from django.utils.safestring import SafeString, mark_safe
 from django.utils.translation import gettext_lazy as _
 
 from .models import FormatterChoices
@@ -50,7 +51,10 @@ def format_column(column):
     return css
 
 
-def format_value(column, value, row_data, detail=False):
+FormattedValue = tuple[str, Union[str, SafeString]]
+
+
+def format_value(column, value, row_data, detail=False) -> FormattedValue:
     css = ""
     formatter = column.formatter
     if value is None:
