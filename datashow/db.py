@@ -10,7 +10,7 @@ from .settings import DATASHOW_DB_CACHE_PATH
 
 
 def get_database_filename(dataset: Dataset) -> str:
-    return "datashow-dataset-{}-{}.sqlite".format(dataset.id, dataset.version)
+    return "datashow-dataset-{}-{}.db".format(dataset.id, dataset.version)
 
 
 def get_database_file(dataset: Dataset) -> Path:

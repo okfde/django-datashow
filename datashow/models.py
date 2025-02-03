@@ -8,7 +8,7 @@ from .settings import DATASHOW_STORAGE_BACKEND
 
 
 def get_sqlite_file_storage_path(instance, filename):
-    filename = instance.slug + ".sqlite"
+    filename = instance.slug + ".db"
     return "datashow/sqlitefiles/{}".format(filename)
 
 
