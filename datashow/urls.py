@@ -15,28 +15,28 @@ urlpatterns = [
     path(
         "<slug:slug>/",
         dataset_index,
-        name="dataset_index",
+        name="dataset-index",
     ),
     path(
         pgettext_lazy("url part", "<slug:slug>/table/<slug:table_slug>/"),
         RowList.as_view(),
-        name="dataset_table",
+        name="dataset-table",
     ),
     path(
         pgettext_lazy("url part", "<slug:slug>/table/<slug:table_slug>/export/"),
         table_csv_export,
-        name="dataset_table_export",
+        name="dataset-table-export",
     ),
     path(
         "<slug:slug>/<slug:row_slug>/",
         show_dataset_default_table_row,
-        name="dataset_row",
+        name="dataset-row",
     ),
     path(
         pgettext_lazy(
             "url part", "<slug:slug>/table/<slug:table_slug>/<slug:row_slug>/"
         ),
         show_dataset_table_row,
-        name="dataset_row",
+        name="dataset-row",
     ),
 ]

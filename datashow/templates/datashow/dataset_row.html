@@ -4,9 +4,9 @@
 {% endblock title %}
 {% block content %}
     {% if dataset.default_table != table %}
-        <a href="{% url "datashow:dataset_table" slug=dataset.slug table_slug=table.slug %}">← {{ table.label }}</a>
+        <a href="{% url "datashow:dataset-table" slug=dataset.slug table_slug=table.slug %}">← {{ table.label }}</a>
     {% else %}
-        <a href="{% url "datashow:dataset_index" slug=dataset.slug %}">← {{ table.label }}</a>
+        <a href="{% url "datashow:dataset-index" slug=dataset.slug %}">← {{ table.label }}</a>
     {% endif %}
     <h1>{{ row_label }}</h1>
     <dl>

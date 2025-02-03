@@ -5,7 +5,7 @@
 {% endblock title %}
 {% block content %}
   {% if dataset.default_table != table %}
-    <a href="{% url "datashow:dataset_index" dataset.slug %}">← {{ dataset.name }}</a>
+    <a href="{% url "datashow:dataset-index" dataset.slug %}">← {{ dataset.name }}</a>
   {% endif %}
   <h1>{{ table.label }}</h1>
   {% include "datashow/_table.html" %}

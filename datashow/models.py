@@ -84,7 +84,7 @@ class AbstractDataset(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("datashow:dataset_index", kwargs={"slug": self.slug})
+        return reverse("datashow:dataset-index", kwargs={"slug": self.slug})
 
     def clean(self):
         if self.default_table and self.default_table.dataset_id != self.pk:
@@ -189,7 +189,7 @@ class Table(models.Model):
         if self.dataset.default_table_id == self.pk:
             return self.dataset.get_absolute_url()
         return reverse(
-            "datashow:dataset_table",
+            "datashow:dataset-table",
             kwargs={"slug": self.dataset.slug, "table_slug": self.slug},
         )
 
@@ -202,9 +202,11 @@ class Table(models.Model):
         return self.name
 
     def get_row_count(self):
+        from .query import SqlQuery
         from .table import get_count
 
-        return get_count(self, "SELECT COUNT(*) FROM {}".format(self.as_sql()))
+        query = SqlQuery(self, None).with_count()
+        return get_count(self, query)
 
     def get_columns(self) -> list["Column"]:
         if not hasattr(self, "_columns"):

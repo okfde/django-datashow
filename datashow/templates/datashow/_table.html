@@ -129,7 +129,7 @@
         </div>
         <div class="col-md-4">
             <div class="d-flex justify-content-end">
-                <a href="{% url "datashow:dataset_table_export" slug=dataset.slug table_slug=table.slug %}?{% querystring %}"
+                <a href="{% url "datashow:dataset-table-export" slug=dataset.slug table_slug=table.slug %}?{% querystring %}"
                    class="btn btn-sm btn-secondary">{% translate "Export view as CSV" %}</a>
             </div>
         </div>
