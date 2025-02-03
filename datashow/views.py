@@ -96,14 +96,16 @@ class Echo:
 
 
 def table_csv_export(request, slug, table_slug):
-    """A view that streams a large CSV file."""
-    # Generate a sequence of rows. The range is based on the maximum number of
-    # rows that can be handled by a single sheet in most spreadsheet
-    # applications.
+    """A view that streams the filtered/sorted table as a CSV file."""
 
     dataset = get_dataset(request, slug)
     table = get_table(dataset, table_slug)
-    generator = RowQueryset(table, request=request).stream_raw()
+
+    filter_form = FilterForm(table, data=request.GET)
+    formdata = None
+    if filter_form.is_valid():
+        formdata = filter_form.cleaned_data
+    generator = RowQueryset(table, formdata=formdata).stream_raw()
 
     pseudo_buffer = Echo(table.get_sql_columns())
     writer = csv.writer(pseudo_buffer)
