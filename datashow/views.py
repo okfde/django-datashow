@@ -131,7 +131,10 @@ def show_dataset_table_row(request, slug: str, table_slug: str, row_slug: str):
 def dataset_row(request, dataset: Dataset, table: Table, row_slug: str):
     if not table.primary_key:
         raise Http404
+    try:
     row, row_dict = get_row(table, row_slug)
+    except KeyError:
+        raise Http404
     row_label = table.row_label(row_dict)
     return render(
         request,

@@ -240,6 +240,8 @@ def get_row(table: Table, row_id: str) -> tuple[list[RenderRow], dict]:
         query = SqlQuery(table).with_row(row_id)
         cursor.execute(query.to_sql(), query.params)
         row = cursor.fetchone()
+        if not row:
+            raise KeyError("Row not found")
         row_data = dict([(col, val) for col, val in zip(col_list, row)])
         # Return only visible columns
         return (
