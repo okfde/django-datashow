@@ -69,9 +69,7 @@ class RowList(ListView):
         ctx = super().get_context_data(**kwargs)
         ctx["dataset"] = self.dataset
         ctx["table"] = self.table
-        ctx["columns"] = [
-            (c, format_column(c)) for c in self.table.get_visible_columns()
-        ]
+        ctx["columns"] = self.table.get_formatted_columns()
         ctx["facets"] = get_facets(self.table, self.formdata)
         ctx["filter_form"] = self.filter_form
         return ctx

@@ -231,6 +231,11 @@ class Table(models.Model):
     def get_sql_columns(self) -> list[str]:
         return [col.name for col in self.get_columns()]
 
+    def get_formatted_columns(self) -> list[dict]:
+        from .formatters import format_column
+
+        return [(c, format_column(c)) for c in self.get_visible_columns()]
+
     def has_fts(self):
         if not self.primary_key:
             return False
