@@ -31,8 +31,8 @@ class SqlQuery:
 
     def add_limit(self, page_slice):
         if page_slice:
-            self.limit = page_slice.stop - page_slice.start
-            self.offset = page_slice.start
+            self.limit = page_slice.stop - (page_slice.start or 0)
+            self.offset = page_slice.start or 0
         else:
             self.limit = self.table.pagination_size
 
