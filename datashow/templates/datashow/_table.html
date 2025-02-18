@@ -113,6 +113,7 @@
             </tbody>
         </table>
     </div>
+    {% block datashow_table_footer %}
     <p>
         {% if filter_form.is_filtered %}
             {% blocktrans with total_count=table.row_count|intcomma count=paginator.count|intcomma %}
@@ -137,4 +138,5 @@
             </div>
         </div>
     </div>
+    {% endblock datashow_table_footer %}
 </div>

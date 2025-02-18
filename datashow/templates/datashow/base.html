@@ -16,10 +16,12 @@
         {% endblock css %}
     </head>
     <body>
-        <div class="container">
-            {% block content %}
-            {% endblock content %}
-        </div>
+        {% block container %}
+            <div class="container">
+                {% block content %}
+                {% endblock content %}
+            </div>
+        {% endblock container %}
         {% block scripts %}
             <script type="text/javascript" src="{% static 'datashow/js/htmlx.min.js' %}"></script>
         {% endblock scripts %}
