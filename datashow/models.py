@@ -258,6 +258,7 @@ class FormatterChoices(models.TextChoices):
     LINK = "link", _("Link")
     SUMMARY = "summary", _("Summary")
     ABBREVIATION = "abbreviation", _("Abbreviation")
+    IFRAME = "iframe", _("IFrame")
 
 
 class FilterChoices(models.TextChoices):

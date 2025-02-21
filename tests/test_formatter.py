@@ -118,3 +118,14 @@ def test_bad_abbreviation_args():
     css, value = format_value(column, "abbr", {})
     assert css == ""
     assert value == "<abbr>abbr</abbr>"
+
+
+def test_iframe_column():
+    column = Column(
+        name="test",
+        formatter=FormatterChoices.IFRAME,
+        formatter_arguments={"width": "100%"},
+    )
+    css, value = format_value(column, "http://example.org", {})
+    assert css == ""
+    assert value == '<iframe src="http://example.org" width="100%"></iframe>'

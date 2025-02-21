@@ -4,7 +4,7 @@ from typing import Union
 
 from django.contrib.humanize.templatetags.humanize import intcomma
 from django.utils import formats
-from django.utils.html import format_html
+from django.utils.html import escape, format_html
 from django.utils.safestring import SafeString, mark_safe
 from django.utils.translation import gettext_lazy as _
 
@@ -115,4 +115,12 @@ def format_value(column, value, row_data, detail=False) -> FormattedValue:
                 title=title,
                 value=value,
             )
+    elif formatter == FormatterChoices.IFRAME:
+        attrs = mark_safe(
+            " ".join('{}="{}"'.format(escape(k), escape(v)) for k, v in args.items())
+        )
+        value = format_html(
+            '<iframe src="{url}" {attrs}></iframe>', url=value, attrs=attrs
+        )
+
     return css, render_value(column, value)
