@@ -1,4 +1,5 @@
 {% extends "datashow/base.html" %}
+{% load datashow_tags %}
 {% block title %}
     {{ table.label }}
 {% endblock title %}
@@ -12,6 +13,7 @@
             {% endif %}
         {% endblock datashow_rowheader_breadcrumb %}
         <h1>{{ row_label }}</h1>
+        {% if row_description %}<div>{{ row_description|markdownify }}</div>{% endif %}
     {% endblock datashow_rowheader %}
     {% block datashow_rowbody %}
         <dl>

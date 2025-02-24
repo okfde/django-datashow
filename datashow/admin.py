@@ -75,6 +75,7 @@ class TableAdmin(admin.ModelAdmin):
                     "description",
                     "visible",
                     "row_label_template",
+                    "row_description_template",
                     "primary_key",
                     "pagination_size",
                 )

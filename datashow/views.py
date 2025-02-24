@@ -145,6 +145,7 @@ def dataset_row(request, dataset: Dataset, table: Table, row_slug: str):
     except KeyError:
         raise Http404
     row_label = table.row_label(row_dict)
+    row_description = table.row_description(row_dict)
     return render(
         request,
         "datashow/dataset_row.html",
@@ -152,6 +153,7 @@ def dataset_row(request, dataset: Dataset, table: Table, row_slug: str):
             "dataset": dataset,
             "table": table,
             "row_label": row_label,
+            "row_description": row_description,
             "row": row,
             "object": row_dict,
         },

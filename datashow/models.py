@@ -141,6 +141,13 @@ class Table(models.Model):
         blank=True,
         help_text=_("Python format template for labeling rows."),
     )
+    row_description_template = models.TextField(
+        _("Row description template"),
+        blank=True,
+        help_text=_(
+            "Python format template for describing rows / rendered as Markdown/HTML!"
+        ),
+    )
     primary_key = models.ForeignKey(
         "Column",
         verbose_name=_("Primary Key Column"),
@@ -184,6 +191,19 @@ class Table(models.Model):
             raise ValidationError(
                 _("Primary Key Column needs to be part of this table.")
             )
+        example_row = {k: k for k in self.get_sql_columns()}
+        try:
+            self.row_label(example_row)
+        except (KeyError, ValueError) as e:
+            raise ValidationError(
+                _("Row label template formatting error: %s") % e
+            ) from e
+        try:
+            self.row_description(example_row)
+        except (KeyError, ValueError) as e:
+            raise ValidationError(
+                _("Row description template formatting error: %s") % e
+            ) from e
 
     def get_absolute_url(self):
         if self.dataset.default_table_id == self.pk:
@@ -244,6 +264,12 @@ class Table(models.Model):
     def row_label(self, row: dict) -> str:
         try:
             return self.row_label_template.format(**row)
+        except (KeyError, ValueError):
+            return ""
+
+    def row_description(self, row: dict) -> str:
+        try:
+            return self.row_description_template.format(**row)
         except (KeyError, ValueError):
             return ""
 

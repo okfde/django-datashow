@@ -58,4 +58,14 @@ def test_table(dataset):
     table.row_label_template = "id:{id}"
     assert table.row_label({"id": 42}) == "id:42"
     table.row_label_template = "id:{foo}"
-    table.row_label({"id": 42}) == ""
+    assert table.row_label({"id": 42}) == ""
+    with pytest.raises(ValidationError):
+        table.clean()
+    table.row_label_template = ""
+
+    table.row_description_template = "id:{id}"
+    assert table.row_description({"id": 42}) == "id:42"
+    table.row_description_template = "id:{foo}"
+    assert table.row_description({"id": 42}) == ""
+    with pytest.raises(ValidationError):
+        table.clean()
