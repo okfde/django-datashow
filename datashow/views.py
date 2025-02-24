@@ -9,11 +9,15 @@ from .models import Dataset, Table
 from .table import RowQueryset, get_facets, get_row
 
 
-def get_dataset(request, slug: str) -> Dataset:
-    qs = Dataset.objects.all()
+def get_viewable_datasets(request, queryset):
     if not request.user.has_perm("datashow.view_dataset"):
-        qs = qs.filter(public=True)
-    return get_object_or_404(qs.select_related("default_table"), slug=slug)
+        queryset = queryset.filter(public=True)
+    return queryset
+
+
+def get_dataset(request, slug: str) -> Dataset:
+    queryset = get_viewable_datasets(request, Dataset.objects.all())
+    return get_object_or_404(queryset.select_related("default_table"), slug=slug)
 
 
 def get_table(dataset: Dataset, table_slug: str) -> Table:
