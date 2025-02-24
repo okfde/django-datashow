@@ -1,5 +1,5 @@
 {% extends "datashow/base.html" %}
-{% load datashow_tags i18n %}
+{% load datashow_tags i18n humanize %}
 {% block title %}
     {{ dataset.name }}
 {% endblock title %}
@@ -13,8 +13,7 @@
             <h5 class="mb-1">
                 <a href="{{ table.get_absolute_url }}">{{ table.label }}</a>
             </h5>
-            <small>{{ table.row_count }} {% translate "rows" %}</small>
-            {% if table.description %}<p>{{ table.description|markdownify }}</p>{% endif %}
+            <small>{{ table.row_count|intcomma }} {% translate "rows" %}</small>
             {% if not forloop.last %}<hr />{% endif %}
         {% endfor %}
     {% endblock datashow_indexbody %}
