@@ -23,7 +23,14 @@ Add `datashow` to your `INSTALLED_APPS` in `settings.py`:
 ```python
 INSTALLED_APPS = [
     ...
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.humanize",  # for number formatting
+    ...
+
     'datashow',
+
     ...
 ]
 ```
@@ -39,7 +46,6 @@ urlpatterns = [
     ...
 ]
 ```
-
 
 ## Settings
 
