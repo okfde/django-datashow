@@ -4,7 +4,6 @@ from django.http import Http404, StreamingHttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import ListView
 
-from .formatters import format_column
 from .forms import FilterForm
 from .models import Dataset, Table
 from .table import RowQueryset, get_facets, get_row
