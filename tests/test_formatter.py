@@ -63,11 +63,11 @@ def test_boolean_column():
     assert "–" in value
     assert format_value(column, True, {}) == (
         ALIGN_CENTER,
-        '<span class="text-success">✅</span>',
+        '<span class="text-success">✅ Yes</span>',
     )
     assert format_value(column, False, {}) == (
         ALIGN_CENTER,
-        '<span class="text-danger">❌</span>',
+        '<span class="text-danger">❌ No</span>',
     )
 
 

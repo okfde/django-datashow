@@ -86,9 +86,15 @@ def format_value(column, value, row_data, detail=False) -> FormattedValue:
         css = NUMBER
     elif formatter == FormatterChoices.BOOLEAN:
         if value:
-            value = mark_safe('<span class="text-success">✅</span>')
+            value = format_html(
+                '<span class="text-success">✅ {}</span>',
+                _("Yes"),
+            )
         else:
-            value = mark_safe('<span class="text-danger">❌</span>')
+            value = format_html(
+                '<span class="text-danger">❌ {}</span>',
+                _("No"),
+            )
         css = ALIGN_CENTER
     elif formatter == FormatterChoices.LINK:
         url = try_format(args, "url", row_data, "")

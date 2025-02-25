@@ -1,7 +1,11 @@
 {% extends "datashow/base.html" %}
 {% load datashow_tags %}
 {% block title %}
-    {{ table.label }}
+    {% if row_label %}
+        {{ row_label }}
+    {% else %}
+        {{ table.label }}
+    {% endif %}
 {% endblock title %}
 {% block content %}
     {% block datashow_rowheader %}
@@ -12,7 +16,7 @@
                 <a href="{% url "datashow:dataset-index" slug=dataset.slug %}">← {{ table.label }}</a>
             {% endif %}
         {% endblock datashow_rowheader_breadcrumb %}
-        <h1>{{ row_label }}</h1>
+        {% if row_label %}<h1>{{ row_label }}</h1>{% endif %}
         {% if row_description %}<div>{{ row_description|markdownify }}</div>{% endif %}
     {% endblock datashow_rowheader %}
     {% block datashow_rowbody %}
