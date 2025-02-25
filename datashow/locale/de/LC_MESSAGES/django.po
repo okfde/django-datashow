@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-29 15:06+0100\n"
-"PO-Revision-Date: 2025-01-29 15:07+0100\n"
+"POT-Creation-Date: 2025-02-25 16:23+0100\n"
+"PO-Revision-Date: 2025-02-25 16:24+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -74,6 +74,14 @@ msgstr "Einen validen Startwert angeben."
 #: fields.py
 msgid "Enter a valid end value."
 msgstr "Einen validen Endwert angeben."
+
+#: formatters.py
+msgid "Yes"
+msgstr "Ja"
+
+#: formatters.py
+msgid "No"
+msgstr "Nein"
 
 #: formatters.py
 msgid "Details"
@@ -216,6 +224,16 @@ msgid "Python format template for labeling rows."
 msgstr "Python-Formavorlage um Zeilen zu beschriften."
 
 #: models.py
+msgid "Row description template"
+msgstr "Zeilen-Beschreibungsvorlage"
+
+#: models.py
+msgid "Python format template for describing rows / rendered as Markdown/HTML!"
+msgstr ""
+"Python-Formavorlage zur Beschreibung von Zeilen / angezeigt als Markdown/"
+"HTML!"
+
+#: models.py
 msgid "Primary Key Column"
 msgstr "Primärschlüsselspalte"
 
@@ -255,6 +273,16 @@ msgid "Primary Key Column needs to be part of this table."
 msgstr "Primärschlüsselspalte muss Teil dieser Tabelle sein."
 
 #: models.py
+#, python-format
+msgid "Row label template formatting error: %s"
+msgstr "Fehler in der Zeilen-Beschriftungsvorlage: %s"
+
+#: models.py
+#, python-format
+msgid "Row description template formatting error: %s"
+msgstr "Fehler in der Zeilen-Beschreibungsvorlage: %s"
+
+#: models.py
 msgid "Plaintext"
 msgstr "Text"
 
@@ -289,6 +317,10 @@ msgstr "Zusammenfassung"
 #: models.py
 msgid "Abbreviation"
 msgstr "Abkürzung"
+
+#: models.py
+msgid "IFrame"
+msgstr "IFrame"
 
 #: models.py
 msgid "Substring"
@@ -413,6 +445,13 @@ msgstr "Zurücksetzen"
 #: templates/datashow/_table.html
 msgid "Search"
 msgstr "Suchen"
+
+#: templates/datashow/_table.html
+#, python-format
+msgid "%(count)s row"
+msgid_plural "%(count)s rows"
+msgstr[0] "%(count)s Zeile"
+msgstr[1] "%(count)s Zeilen"
 
 #: templates/datashow/_table.html
 msgid "remove filter"
