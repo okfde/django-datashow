@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "django-datashow"
-version = "0.1.8"
+version = "0.1.9"
 description = "Present your datasets on your django site"
 readme = "README.md"
 requires-python = ">=3.10"
