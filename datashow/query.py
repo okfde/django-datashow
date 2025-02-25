@@ -1,9 +1,26 @@
+import re
 from typing import Optional
 
 from .forms import SEARCH_PARAM, SORT_PARAM
 from .models import FilterChoices
 
 NONE_VALUE = "-"
+SEP = re.compile(r'\s+|(".*?")')
+MIN_WORD_PREFIX_LENGTH = 3
+PREFIX_QUERY_MARKER = "*"
+
+
+def make_fts_query(q: str) -> str:
+    if q.count('"') % 2:
+        q += '"'
+    query = []
+    for p in (x for x in SEP.split(q) if x and x != '""'):
+        if '"' not in p and len(p) >= MIN_WORD_PREFIX_LENGTH:
+            p = f'"{p}"*'
+        elif '"' not in p:
+            p = f'"{p}"'
+        query.append(p)
+    return " ".join(query)
 
 
 class SqlQuery:
@@ -120,6 +137,7 @@ class SqlQuery:
 
         query: str = self.formdata.get(SEARCH_PARAM)
         if query and self.table.has_fts():
+            query = make_fts_query(query)
             fts_table_name = f"{self.table.name}__fts"
             pk_col = self.table.primary_key.name
             self._from.append(

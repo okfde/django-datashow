@@ -74,7 +74,7 @@ def test_query(table):
         '"ministries"."email" IS NULL',
         '"ministries"."id" BETWEEN ? AND ?',
     ]
-    assert query.params == ["foo", 10, 20]
+    assert query.params == ['"foo"*', 10, 20]
     assert len(query.select) == len(table.get_sql_columns())
     assert table.as_sql() in query._from
 
@@ -90,7 +90,7 @@ def test_query(table):
         '"ministries"."email" = ?',
         '"ministries"."id" >= ?',
     ]
-    assert query.params == ["foo", "Test", 10]
+    assert query.params == ['"foo"*', "Test", 10]
 
     data = {
         SEARCH_PARAM: "foo",
@@ -104,7 +104,7 @@ def test_query(table):
         '"ministries"."email" = ?',
         '"ministries"."id" <= ?',
     ]
-    assert query.params == ["foo", "Test", 20]
+    assert query.params == ['"foo"*', "Test", 20]
 
     data = {
         "id__range": [None, None],
