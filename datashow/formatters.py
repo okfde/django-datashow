@@ -54,10 +54,21 @@ def format_column(column):
 FormattedValue = tuple[str, Union[str, SafeString]]
 
 
+def format_link(value, args, row_data):
+    url = try_format(args, "url", row_data, "")
+    return format_html(
+        '<a href="{href}">{link}</a>',
+        href=url,
+        link=value,
+    )
+
+
 def format_value(column, value, row_data, detail=False) -> FormattedValue:
     css = ""
     formatter = column.formatter
+    args = column.formatter_arguments
     if value is None:
+        value = mark_safe('<span class="text-secondary">–</span>')
         if formatter == FormatterChoices.BOOLEAN:
             css = ALIGN_CENTER
         if formatter in (
@@ -67,9 +78,10 @@ def format_value(column, value, row_data, detail=False) -> FormattedValue:
             FormatterChoices.DATETIME,
         ):
             css = ALIGN_RIGHT
-        return css, mark_safe('<span class="text-secondary">–</span>')
+        if formatter == FormatterChoices.LINK:
+            return css, render_value(column, format_link(value, args, row_data))
+        return css, value
 
-    args = column.formatter_arguments
     if formatter == FormatterChoices.FLOAT:
         value = intcomma(value)
         css = NUMBER
@@ -97,12 +109,7 @@ def format_value(column, value, row_data, detail=False) -> FormattedValue:
             )
         css = ALIGN_CENTER
     elif formatter == FormatterChoices.LINK:
-        url = try_format(args, "url", row_data, "")
-        value = format_html(
-            '<a href="{href}">{link}</a>',
-            href=url,
-            link=value,
-        )
+        value = format_link(value, args, row_data)
     elif formatter == FormatterChoices.SUMMARY:
         if not detail:
             summary = try_format(args, "summary", row_data, _("Details"))

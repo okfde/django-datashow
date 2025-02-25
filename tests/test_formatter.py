@@ -81,6 +81,13 @@ def test_link_column():
     assert css == ""
     assert value == '<a href="http://example.com">Example</a>'
 
+    css, value = format_value(column, None, {})
+    assert css == ""
+    assert (
+        value
+        == '<a href="http://example.com"><span class="text-secondary">–</span></a>'
+    )
+
 
 def test_summary_column():
     column = Column(
