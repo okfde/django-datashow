@@ -30,6 +30,15 @@ def try_format(args, key, row_data, default=""):
         return default
 
 
+def generate_formatted_attrs(args, row_data):
+    return mark_safe(
+        " ".join(
+            '{}="{}"'.format(escape(k), escape(try_format(args, k, row_data)))
+            for k in args
+        )
+    )
+
+
 ALIGN_RIGHT = "text-end"
 ALIGN_CENTER = "text-center"
 NUMBER = "tabular-numbers text-end"
@@ -55,10 +64,10 @@ FormattedValue = tuple[str, Union[str, SafeString]]
 
 
 def format_link(value, args, row_data):
-    url = try_format(args, "url", row_data, "")
+    attrs = generate_formatted_attrs(args, row_data)
     return format_html(
-        '<a href="{href}">{link}</a>',
-        href=url,
+        "<a {attrs}>{link}</a>",
+        attrs=attrs,
         link=value,
     )
 
@@ -129,9 +138,7 @@ def format_value(column, value, row_data, detail=False) -> FormattedValue:
                 value=value,
             )
     elif formatter == FormatterChoices.IFRAME:
-        attrs = mark_safe(
-            " ".join('{}="{}"'.format(escape(k), escape(v)) for k, v in args.items())
-        )
+        attrs = generate_formatted_attrs(args, row_data)
         value = format_html(
             '<iframe src="{url}" {attrs}></iframe>', url=value, attrs=attrs
         )

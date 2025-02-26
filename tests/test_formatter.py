@@ -75,17 +75,17 @@ def test_link_column():
     column = Column(
         name="test",
         formatter=FormatterChoices.LINK,
-        formatter_arguments={"url": "http://example.com"},
+        formatter_arguments={"href": "http://example.com", "target": "_blank"},
     )
     css, value = format_value(column, "Example", {})
     assert css == ""
-    assert value == '<a href="http://example.com">Example</a>'
+    assert value == '<a href="http://example.com" target="_blank">Example</a>'
 
     css, value = format_value(column, None, {})
     assert css == ""
     assert (
         value
-        == '<a href="http://example.com"><span class="text-secondary">–</span></a>'
+        == '<a href="http://example.com" target="_blank"><span class="text-secondary">–</span></a>'
     )
 
 
@@ -131,8 +131,17 @@ def test_iframe_column():
     column = Column(
         name="test",
         formatter=FormatterChoices.IFRAME,
-        formatter_arguments={"width": "100%"},
+        formatter_arguments={"width": "100%", "data-bar": "bar:{bar}"},
     )
-    css, value = format_value(column, "http://example.org", {})
+    css, value = format_value(
+        column,
+        "http://example.org",
+        {
+            "bar": "baz",
+        },
+    )
     assert css == ""
-    assert value == '<iframe src="http://example.org" width="100%"></iframe>'
+    assert (
+        value
+        == '<iframe src="http://example.org" width="100%" data-bar="bar:baz"></iframe>'
+    )
